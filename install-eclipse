@@ -36,7 +36,7 @@ readonly __APPNAME=$( basename "${BASH_SOURCE[0]}" )
 readonly __APPVERSION=1.0
 readonly __SUPPORTED_OS=(MAC)
 readonly __SUPPORTED_ARCH=(x86_64 x86)
-readonly __DEBUG=TRUE
+readonly __DEBUG=FALSE
 readonly __CREATENEWLOG=TRUE
 ## end ## meta-data
 
@@ -241,7 +241,8 @@ function _main(){
     done
     shift $((OPTIND-1)) 
     
-    local _install_dir=$1
+    [[ -z "$1" ]] && _error_exit "install folder not specified" || local _install_dir=$1
+
             
     if [ "$_plugins_only" == "false" ]; then
         if [ -d $_install_dir ]; then
