@@ -475,7 +475,7 @@ function install_plugins(){
     [[ -z "$1" ]] && _error_exit "plugin config file not specified" || local _plugin_config=$1
     [[ -z "$2" ]] && _error_exit "installation directory not specified" || local _install_dir=$2
     local _cmd=
-    if [ $(echo $_plugin_config | grep -Poc '^http[s]*://.*') -gt 0 ]; then
+    if [ $(echo $_plugin_config | grep -Eoc '^(http|https)://.*') -gt 0 ]; then
 		#check to see if the download file exists
 		[ "$(_get_responsecode $_plugin_config)" == "200" ] || _error_exit "plugin config file not found at [$_plugin_config]"
         _cmd="curl -s"
