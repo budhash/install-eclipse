@@ -114,6 +114,16 @@ function _get_tempdir(){
 }
 
 ##
+# @info     returns the http response code for the given url
+# @param    url
+# @param    destination folder
+# @return   temporary directory path
+##
+function _get_responsecode(){
+	echo --url "$1" | curl -ILs --config - -w "%{http_code}\\n" -o /dev/null
+}
+
+##
 # @info     downloads and extracts a compressed archive
 # @param    download url
 # @param    destination folder
@@ -124,6 +134,9 @@ function _download_extract(){
     [[ -z "$2" ]] && _error_exit "destination directory not specified" || local _dest_dir=$2
     local _sub_dir=$3
     
+	#check to see if the download file exists
+	[ "$(_get_responsecode $_dnld_url)" == "200" ] || _error_exit "file [$_dnld_url] doesn't exist!"
+	
     local _file=$(basename $_dnld_url)
     local _filename="${_file%.*}"
     local _ext="${_file##*.}"
@@ -463,7 +476,8 @@ function install_plugins(){
     [[ -z "$2" ]] && _error_exit "installation directory not specified" || local _install_dir=$2
     local _cmd=
     if [ $(echo $_plugin_config | grep -Poc '^http[s]*://.*') -gt 0 ]; then
-        [ $(curl -sL -w "%{http_code}\\n" $_plugin_config -o /dev/null) -eq 200 ] || _error_exit "plugin config file not found at [$_plugin_config]"
+		#check to see if the download file exists
+		[ "$(_get_responsecode $_plugin_config)" == "200" ] || _error_exit "plugin config file not found at [$_plugin_config]"
         _cmd="curl -s"
     else
         [ -f "$_plugin_config" ] || _error_exit "plugin config file not found at [$_plugin_config]"
