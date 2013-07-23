@@ -23,20 +23,20 @@ limitations under the License.
 install-eclipse is a shell script that installs eclipse in a non-interactive, 
 automated way. As part of the workflow, the script install the [Eclipse Platform 
 Runtime Binaries](http://www.eclipse.org/downloads/moreinfo/custom.php) and then
-installs any additional eclipse plugins that is specified via the command 
-line. In addition, the script can take a plugin configuration file as its
-input and will automatically install all the plugins defined in the file. Refer to
-[plugins.cfg](https://github.com/budhash/install-eclipse/blob/master/profiles/plugins.cfg)
-as an example.
+installs additional eclipse plugin(s), if specified. 
+The list of plugins to be installed can either be a specified via:
+* command-line switch
+* local or remote config file, listing the plugins to be installed 
+Refer to [git-java-mvn.cfg](https://github.com/budhash/install-eclipse/blob/master/profiles/git-java-mvn.cfg), as an example.
 
-See usage for more details 
+See Usage and Examples for more details. 
 
 ## Features 
 
 * non-interactive eclipse installation, great for automated setups
 * installs only what is needed
 * ability to provide a list of plugins to be installed. 
-* the plugin list can me a remote file accessible over http[s]
+* the plugin list can be a remote file accessible over http[s]
 * optimizes eclipse.ini [EXPERIMENTAL]
 
 ## Installing
@@ -85,15 +85,15 @@ See usage for more details
     
 -install eclipse along with plugins specified in a config file
 
-    install-eclipse -c ./plugins.cfg eclipse
+    install-eclipse -c ./profiles/plugins.cfg eclipse
     
 -install eclipse along with plugins specified in a remote config file
 
     install-eclipse -c http://127.0.0.1:8000/plugins.cfg  eclipse
     
--install plugins specified without instastalling (in an existing installation)
+-install plugins specified without installing (in an existing installation)
 
-    install-eclipse -n -c http://127.0.0.1:8000/plugins.cfg eclipse
+    install-eclipse -n -c https://github.com/budhash/install-eclipse/blob/master/profiles/plugins.cfg eclipse
     
 -install eclipse and remove existing destination folder if it exists
 
