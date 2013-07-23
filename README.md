@@ -25,8 +25,8 @@ automated way. As part of the workflow, the script install the [Eclipse Platform
 Runtime Binaries](http://www.eclipse.org/downloads/moreinfo/custom.php) and then
 installs additional eclipse plugin(s), if specified. 
 The list of plugins to be installed can either be a specified via:
-* command-line switch
-* local or remote config file, listing the plugins to be installed 
+* command-line switch. e.g. -p "http://beust.com/eclipse/,org.testng.eclipse"
+* local or remote config file, listing the plugins to be installed. 
 Refer to [git-java-mvn.cfg](https://github.com/budhash/install-eclipse/blob/master/profiles/git-java-mvn.cfg), as an example.
 
 See Usage and Examples for more details. 
