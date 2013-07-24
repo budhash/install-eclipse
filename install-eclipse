@@ -278,6 +278,7 @@ function _main(){
     
     #installing plugins - passed via command line
     if [ "$_plugin_name" != "" ]; then
+        [ $(which java | grep -c 'java') -eq 0 ] && _error_exit "java not installed. unable to install plugins"
         for p in "${_plugins[@]}"; do  
             install_plugin "${_install_dir}" "${p}" 
         done;
@@ -285,6 +286,7 @@ function _main(){
     
     #installing plugins - passed via config file
     if [ "$_plugin_config" != "" ]; then
+        [ $(which java | grep -c 'java') -eq 0 ] && _error_exit "java not installed. unable to install plugins"
         [ ! -f "$_install_dir"/eclipse ] && _error_exit "valid eclipse installation directory not found at [$_install_dir]"
         install_plugins "$_plugin_config" "$_install_dir"
     fi
@@ -509,7 +511,7 @@ function install_plugin(){
     local line="$@" # get all args
     local line=$(echo "$@" | sed 's/^[ \t]*//')
     local first_char=`echo ${line} | awk '{ print substr( $0, 0, 1 ) }'`
-    [ "${first_char}" == "#" ] && return -1    
+    [ "${first_char}" == "#" ] && return 1    
     local _repo=`echo "${line}" | awk -F, '{print $1}'`
     local _plugin=`echo "${line}" | awk -F, '{print $2}'`
 
