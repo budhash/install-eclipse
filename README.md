@@ -4,7 +4,7 @@
 non-interactive eclipse installer
 
 ## Status 
-BETA
+STABLE
 
 ## License
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -106,6 +106,10 @@ See Usage and Examples for more details.
 -complex commands
 
     install-eclipse -o -f -c https://raw.github.com/budhash/install-eclipse/master/profiles/plugins.cfg -d http://mirror.cc.columbia.edu/pub/software/eclipse/eclipse/downloads/drops4/R-4.3-201306052000/eclipse-platform-4.3-macosx-cocoa-x86_64.tar.gz
+
+-install directly without downloading/installing install-eclipse locally 
+
+    bash <( curl -sk https://raw.github.com/budhash/install-eclipse/master/install-eclipse ) -f -c https://raw.github.com/budhash/install-eclipse/master/profiles/git-java-mvn.cfg ./eclipse
 
 ## Limitations
 * This script has currently been tested on OSX 10.8.3 with Eclipse 4.3 only. 
