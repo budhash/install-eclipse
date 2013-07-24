@@ -112,7 +112,7 @@ See Usage and Examples for more details.
     bash <( curl -sk https://raw.github.com/budhash/install-eclipse/master/install-eclipse ) -f -c https://raw.github.com/budhash/install-eclipse/master/profiles/git-java-mvn.cfg ./eclipse
 
 ## Limitations
-* This script has currently been tested on OSX 10.8.3 with Eclipse 4.3 only. 
+* This script has currently been tested on OSX 10.8.3, Ubuntu 12.10 with Eclipse 4.3 only. 
 
 ## Known Issues
 * See [install-eclipse issues on GitHub](https://github.com/budhash/install-eclipse/issues) for open issues
