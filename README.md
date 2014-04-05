@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/budhash/install-eclipse.png?branch=master)](https://travis-ci.org/budhash/install-eclipse)
+
 # install-eclipse
 
 ## Summary
