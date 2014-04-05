@@ -46,6 +46,7 @@ readonly __CREATENEWLOG=TRUE
 # @info     logging functions
 ##
 function _log() { echo "[info]: $@" 1>&2; }
+function _warn() { echo "[warn]: $@" 1>&2; }
 function _error() { echo "[error]: $@" 1>&2; }
 function _error_exit() { echo "[error]: $@" 1>&2; exit 1;}
 function _debug() { [ "$__DEBUG" == "TRUE" ] && echo "[debug]: $@" 1>&2; }
