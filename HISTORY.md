@@ -1,3 +1,12 @@
+v1.3 / 2014-04-05
+==================
+ * added support for wget, in case curl doesn't exist
+
+v1.2 / 2014-04-05
+==================
+ * general bug fixes
+ * support for eclipse version 4.3.2
+ 
 v1.1 / 2013-07-23
 ==================
  * general bug fixes
