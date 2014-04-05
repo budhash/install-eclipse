@@ -5,7 +5,7 @@
 #
 # --------------------------------------------------------------------
 # AUTHOR:   Copyright (C) Budhaditya Das <budhash@gmail.com>
-# VERSION:  1.1
+# VERSION:  1.2
 # --------------------------------------------------------------------
 # DESCRIPTION:
 #
@@ -33,7 +33,7 @@
 
 ## begin ## meta-data
 readonly __APPNAME=$( basename "${BASH_SOURCE[0]}" )
-readonly __APPVERSION=1.0
+readonly __APPVERSION=1.2
 readonly __SUPPORTED_OS=(MAC LINUX-DEBIAN)
 readonly __SUPPORTED_ARCH=(x86_64 x86)
 readonly __DEBUG=FALSE
@@ -312,7 +312,7 @@ function _main(){
 # @return   na
 ##
 function _load_config(){
-    _ECLIPSE_VERSION=4.3
+    _ECLIPSE_VERSION=4.3.2
     _ECLIPSE_DNLD_MIRROR=http://mirror.cc.columbia.edu/pub/software/eclipse/eclipse/downloads
     _ECLIPSE_DOWNLOAD_URL=http://download.eclipse.org/eclipse/downloads/
 }
@@ -417,7 +417,7 @@ function install_application(){
 function get_download_url(){
     [[ -z "$1" ]] && _error_exit "os not specified" || local _os=$1
     [ -z $2 ] && _error_exit "arch not specified" || local _arch=$2
-    local _tmp_url_a=$(curl -s $_ECLIPSE_DOWNLOAD_URL | grep -A1 "Latest Release" | grep drop | awk -F\" '{print $2}')
+    local _tmp_url_a=$(curl -s $_ECLIPSE_DOWNLOAD_URL | grep -A1 "Latest Release" | grep -Eo "drop.*/\"" | awk -F\" '{print $1}')
     local _dnld_url=
     
     case "$_os" in
@@ -535,7 +535,7 @@ function install_plugin(){
     local _plugin=`echo "${line}" | awk -F, '{print $2}'`
 
     _log "installing plugin: $_plugin"
-    local _success=$("$_install_dir"/eclipse -nosplash -application org.eclipse.equinox.p2.director -repository "$_repo" -installIU "$_plugin" 2>>$__LOGFILE | grep -Poc '^Operation completed in')
+    local _success=$("$_install_dir"/eclipse -nosplash -application org.eclipse.equinox.p2.director -repository "$_repo" -installIU "$_plugin" 2>>$__LOGFILE | grep -Eoc '^Operation completed in')
     [ $_success -eq 0 ] && _error "plugin [$_plugin] installation failed. see [$__LOGFILE] for more details"
 }
 
