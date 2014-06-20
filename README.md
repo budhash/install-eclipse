@@ -95,7 +95,7 @@ See Usage and Examples for more details.
     
 -install plugins specified without installing (in an existing installation)
 
-    install-eclipse -n -c https://github.com/budhash/install-eclipse/blob/master/profiles/plugins.cfg eclipse
+    install-eclipse -n -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/plugins.cfg eclipse
     
 -install eclipse and remove existing destination folder if it exists
 
@@ -107,11 +107,11 @@ See Usage and Examples for more details.
     
 -complex commands
 
-    install-eclipse -o -f -c https://raw.github.com/budhash/install-eclipse/master/profiles/plugins.cfg -d http://mirror.cc.columbia.edu/pub/software/eclipse/eclipse/downloads/drops4/R-4.3-201306052000/eclipse-platform-4.3-macosx-cocoa-x86_64.tar.gz
+    install-eclipse -o -f -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/plugins.cfg -d http://mirror.cc.columbia.edu/pub/software/eclipse/eclipse/downloads/drops4/R-4.3-201306052000/eclipse-platform-4.3-macosx-cocoa-x86_64.tar.gz
 
 -install directly without downloading/installing install-eclipse locally 
 
-    bash <( curl -sk https://raw.github.com/budhash/install-eclipse/master/install-eclipse ) -f -c https://raw.github.com/budhash/install-eclipse/master/profiles/git-java-mvn.cfg ./eclipse
+    bash <( curl -sk https://raw.githubusercontent.com/budhash/install-eclipse/master/install-eclipse ) -f -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/git-java-mvn.cfg ./eclipse
 
 ## Limitations
 * This script has currently been tested on OSX 10.8.3, Ubuntu 12.10 with Eclipse 4.3 only. 
