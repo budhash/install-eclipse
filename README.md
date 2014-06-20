@@ -43,7 +43,7 @@ See Usage and Examples for more details.
 
 ## Installing
 
-    curl -k https://raw.github.com/budhash/install-eclipse/master/install-eclipse > install-eclipse; chmod +x install-eclipse
+    curl -k https://raw.githubusercontent.com/budhash/install-eclipse/master/install-eclipse > install-eclipse; chmod +x install-eclipse
 
 ## Usage
 
