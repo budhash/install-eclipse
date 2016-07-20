@@ -79,11 +79,11 @@ See Usage and Examples for more details.
 
 -install eclipse and jdt plugin
 
-    install-eclipse -p "http://download.eclipse.org/releases/kepler,org.eclipse.jdt.feature.group" eclipse
+    install-eclipse -p "http://download.eclipse.org/releases/neon,org.eclipse.jdt.feature.group" eclipse
     
 -install eclipse, jdt plugin and testng plugin
 
-    install-eclipse -p "http://download.eclipse.org/releases/kepler,org.eclipse.jdt.feature.group" -p "http://beust.com/eclipse/,org.testng.eclipse" eclipse
+    install-eclipse -p "http://download.eclipse.org/releases/neon,org.eclipse.jdt.feature.group" -p "http://beust.com/eclipse/,org.testng.eclipse" eclipse
     
 -install eclipse along with plugins specified in a config file
 
@@ -107,14 +107,14 @@ See Usage and Examples for more details.
     
 -complex commands
 
-    install-eclipse -o -f -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/plugins.cfg -d http://mirror.cc.columbia.edu/pub/software/eclipse/eclipse/downloads/drops4/R-4.3-201306052000/eclipse-platform-4.3-macosx-cocoa-x86_64.tar.gz
+    install-eclipse -o -f -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/plugins.cfg -d http://mirror.cc.columbia.edu/pub/software/eclipse/eclipse/downloads/drops4/R-4.6-201606061100/eclipse-platform-4.6-macosx-cocoa-x86_64.tar.gz
 
 -install directly without downloading/installing install-eclipse locally 
 
     bash <( curl -sk https://raw.githubusercontent.com/budhash/install-eclipse/master/install-eclipse ) -f -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/git-java-mvn.cfg ./eclipse
 
 ## Limitations
-* This script has currently been tested on OSX 10.8.3, Ubuntu 12.10 with Eclipse 4.3 only. 
+* This script has currently been tested on OSX 10.10, Ubuntu 12.10 with Eclipse 4.6 only. 
 
 ## Known Issues
 * See [install-eclipse issues on GitHub](https://github.com/budhash/install-eclipse/issues) for open issues

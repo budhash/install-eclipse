@@ -5,7 +5,7 @@
 #
 # --------------------------------------------------------------------
 # AUTHOR:   Copyright (C) Budhaditya Das <budhash@gmail.com>
-# VERSION:  1.3
+# VERSION:  1.4
 # --------------------------------------------------------------------
 # DESCRIPTION:
 #
@@ -33,7 +33,7 @@
 
 ## begin ## meta-data
 readonly __APPNAME=$( basename "${BASH_SOURCE[0]}" )
-readonly __APPVERSION=1.3
+readonly __APPVERSION=1.4
 readonly __SUPPORTED_OS=(MAC LINUX-DEBIAN)
 readonly __SUPPORTED_ARCH=(x86_64 x86)
 readonly __DEBUG=FALSE
@@ -163,7 +163,7 @@ function _get_url(){
 function _download_extract(){
     [[ -z "$1" ]] && _error_exit "download not specified" || local _dnld_url=$1
     [[ -z "$2" ]] && _error_exit "destination directory not specified" || local _dest_dir=$2
-    local _sub_dir=$3
+    local _has_sub_dir=$3
     
     #check to see if the download file exists
     [ "$(_get_responsecode $_dnld_url)" == "200" ] || _error_exit "file [$_dnld_url] doesn't exist!"
@@ -190,9 +190,10 @@ function _download_extract(){
              *) _error_exit "unsupported extension type [$_ext]"
      esac
 
-    if [ "$_sub_dir" == "" ]; then
+    if [ "$_has_sub_dir" == "false" ]; then
          mv "$_tmpdir" "$_dest_dir"
     else
+		local _sub_dir=$(ls -t $_tmpdir | head -1)
         if [ -d "$_tmpdir/$_sub_dir" ]; then
             mv "$_tmpdir/$_sub_dir" "$_dest_dir"
             rm -rf "$_tmpdir"
@@ -287,6 +288,14 @@ function _main(){
 	
     [[ -z "$1" ]] && _error_exit "install folder not specified" || local _install_dir=$1
           
+	#handle os specific folder structures
+	case "$__OS" in
+        MAC) 
+			if ! [[ "$_install_dir" == *.app ]];then
+				_install_dir=${_install_dir}.app
+			fi	
+    esac
+
     if [ "$_plugins_only" == "false" ]; then
         if [ -d $_install_dir ]; then
             if [ "$_force_install" == "true" ]; then 
@@ -300,6 +309,12 @@ function _main(){
         #installing
         install_application "$_install_dir" "$_download_url"
         
+		#workaround for legacy installs on osx
+		if [[ "$_install_dir" == *.app ]] && [ -f "$_install_dir"/Eclipse.app/Contents/MacOS/eclipse ]; then
+			_install_dir=${_install_dir%.app}
+			mv ${_install_dir}.app $_install_dir
+		fi	
+		
         #optimizing installation 
         if [ "$_optimize_install" == "true" ]; then
             optimize_install "${_install_dir}"
@@ -317,7 +332,7 @@ function _main(){
     #installing plugins - passed via config file
     if [ "$_plugin_config" != "" ]; then
         [ $(which java | grep -c 'java') -eq 0 ] && _error_exit "java not installed. unable to install plugins"
-        [ ! -f "$_install_dir"/eclipse ] && _error_exit "valid eclipse installation directory not found at [$_install_dir]"
+        #[ ! -f "$_install_dir"/eclipse ] && _error_exit "valid eclipse installation directory not found at [$_install_dir]"
         install_plugins "$_plugin_config" "$_install_dir"
     fi
     
@@ -330,7 +345,7 @@ function _main(){
 # @return   na
 ##
 function _load_config(){
-    _ECLIPSE_VERSION=4.3.2
+    _ECLIPSE_VERSION=4.6
     _ECLIPSE_DNLD_MIRROR=http://mirror.cc.columbia.edu/pub/software/eclipse/eclipse/downloads
     _ECLIPSE_DOWNLOAD_URL=http://download.eclipse.org/eclipse/downloads/
 }
@@ -422,8 +437,8 @@ function install_application(){
         _download_url=$(get_download_url $__OS $__ARCH)
         [ "$_download_url" == "" ] && _error_exit "unable to find download url for os=$__OS arch=$__ARCH"
     fi
-    
-    _download_extract "$_download_url" "$_install_dir" eclipse
+
+    _download_extract "$_download_url" "$_install_dir"
 }
 
 ##
@@ -470,7 +485,13 @@ function optimize_install(){
     local _eclipse_ini=
     
     case "$__OS" in
-        MAC)    _eclipse_ini="$_install_dir/Eclipse.app/Contents/MacOS/eclipse.ini" ;;
+        MAC) 
+			if [ -f "$_install_dir"/Contents/MacOS/eclipse ]; then
+				_eclipse_ini="$_install_dir"/Contents/MacOS/eclipse.ini
+			else
+				_eclipse_ini="$_install_dir"/Eclipse.app/Contents/MacOS/eclipse.ini	
+			fi
+			;;
         LINUX*) _eclipse_ini="$_install_dir/eclipse.ini" ;;
         *)      _error_exit "unsupported os/architecture";;
     esac
@@ -553,7 +574,14 @@ function install_plugin(){
     local _plugin=`echo "${line}" | awk -F, '{print $2}'`
 
     _log "installing plugin: $_plugin"
-    local _success=$("$_install_dir"/eclipse -nosplash -application org.eclipse.equinox.p2.director -repository "$_repo" -installIU "$_plugin" 2>>$__LOGFILE | grep -Eoc '^Operation completed in')
+
+	#handle os specific folder structures
+	local _eclipse_exec="$_install_dir"/eclipse
+	if [ -f "$_install_dir"/Contents/MacOS/eclipse ]; then
+		_eclipse_exec="$_install_dir"/Contents/MacOS/eclipse
+	fi
+
+    local _success=$($_eclipse_exec -nosplash -application org.eclipse.equinox.p2.director -repository "$_repo" -installIU "$_plugin" 2>>$__LOGFILE | grep -Eoc '^Operation completed in')
     [ $_success -eq 0 ] && _error "plugin [$_plugin] installation failed. see [$__LOGFILE] for more details"
 }
 

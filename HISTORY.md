@@ -1,3 +1,8 @@
+v1.4 / 2016-07-18
+==================
+ * fixed OSX installation issue for eclipse-neon
+ * updated plugins to point to eclipse-neon
+
 v1.3 / 2014-04-05
 ==================
  * added support for wget, in case curl doesn't exist
