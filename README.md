@@ -75,39 +75,39 @@ See Usage and Examples for more details.
 ## Examples
 -install latest version into "eclipse" folder. without any additional plugins
 
-    install-eclipse eclipse
+    ./install-eclipse eclipse
 
 -install eclipse and jdt plugin
 
-    install-eclipse -p "http://download.eclipse.org/releases/neon,org.eclipse.jdt.feature.group" eclipse
+    ./install-eclipse -p "http://download.eclipse.org/releases/neon,org.eclipse.jdt.feature.group" eclipse
     
 -install eclipse, jdt plugin and testng plugin
 
-    install-eclipse -p "http://download.eclipse.org/releases/neon,org.eclipse.jdt.feature.group" -p "http://beust.com/eclipse/,org.testng.eclipse" eclipse
+    ./install-eclipse -p "http://download.eclipse.org/releases/neon,org.eclipse.jdt.feature.group" -p "http://beust.com/eclipse/,org.testng.eclipse" eclipse
     
 -install eclipse along with plugins specified in a config file
 
-    install-eclipse -c ./profiles/plugins.cfg eclipse
+    ./install-eclipse -c ./profiles/plugins.cfg eclipse
     
 -install eclipse along with plugins specified in a remote config file
 
-    install-eclipse -c http://127.0.0.1:8000/plugins.cfg  eclipse
+    ./install-eclipse -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/git-java-mvn.cfg eclipse
     
 -install plugins specified without installing (in an existing installation)
 
-    install-eclipse -n -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/plugins.cfg eclipse
+    ./install-eclipse -n -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/plugins.cfg eclipse
     
 -install eclipse and remove existing destination folder if it exists
 
-    install-eclipse -f eclipse
+    ./install-eclipse -f eclipse
     
 -install eclipse and optimize eclipse.ini file [EXPERIMENTAL]
 
-    install-eclipse -f -o eclipse
+    ./install-eclipse -f -o eclipse
     
 -complex commands
 
-    install-eclipse -o -f -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/plugins.cfg -d http://mirror.cc.columbia.edu/pub/software/eclipse/eclipse/downloads/drops4/R-4.6-201606061100/eclipse-platform-4.6-macosx-cocoa-x86_64.tar.gz
+    ./install-eclipse -o -f -c https://raw.githubusercontent.com/budhash/install-eclipse/master/profiles/plugins.cfg -d http://mirror.cc.columbia.edu/pub/software/eclipse/eclipse/downloads/drops4/R-4.6-201606061100/eclipse-platform-4.6-macosx-cocoa-x86_64.tar.gz
 
 -install directly without downloading/installing install-eclipse locally 
 
