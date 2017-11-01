@@ -101,6 +101,11 @@ function _get_arch(){
         LINUX*)    _arch=`uname -m 2> /dev/null`;;
         *)        _arch="UNKNOWN";;
     esac
+    
+    if [ "$_arch" == "i686" ]; then
+        _arch="x86";
+    fi
+
     echo $_arch         
 }
 
